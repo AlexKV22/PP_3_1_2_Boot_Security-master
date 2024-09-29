@@ -9,53 +9,52 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
-import javax.sql.DataSource;
+
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-//    private final SuccessUserHandler successUserHandler;
+    private final SuccessUserHandler successUserHandler;
 
-//    public WebSecurityConfig(SuccessUserHandler successUserHandler) {
-//        this.successUserHandler = successUserHandler;
-//    }
+    public WebSecurityConfig(SuccessUserHandler successUserHandler) {
+        this.successUserHandler = successUserHandler;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
                 .antMatchers("/", "/index").authenticated()
-//                .antMatchers("/admin/**").hasRole("ADMIN")
-//                .anyRequest().authenticated()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
 //                .successHandler(successUserHandler)
-//                .permitAll()
+                .permitAll()
                 .and()
-                .logout().logoutSuccessUrl("/");
-//                .permitAll();
+                .logout().logoutSuccessUrl("/")
+                .permitAll();
     }
 
     // аутентификация inMemory
-//    @Bean
-//    @Override
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user =
-//                User.builder()
-//                        .username("user")
-//                        .password("user")
-//                        .roles("USER")
-//                        .build();
-//        UserDetails admin = User.builder()
-//                .username("admin")
-//                .password("admin")
-//                .roles("USER", "ADMIN")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(user, admin);
-//    }
+    @Bean
+    @Override
+    public UserDetailsService userDetailsService() {
+        UserDetails user =
+                User.builder()
+                        .username("user")
+                        .password("user")
+                        .roles("USER")
+                        .build();
+        UserDetails admin = User.builder()
+                .username("admin")
+                .password("admin")
+                .roles("USER", "ADMIN")
+                .build();
+
+        return new InMemoryUserDetailsManager(user, admin);
+    }
 
 //    @Bean
 //    public JdbcUserDetailsManager users(DataSource dataSource) {

@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.ui.ModelMap;
@@ -14,7 +15,7 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@Controller
 public class UserController {
     @Autowired
     private UserService userService;
