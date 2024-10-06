@@ -16,7 +16,7 @@
 
 
 <div>
-    <form action = "/actionUserForm" method="get">
+    <form action = "admin/actionUserForm" method="get">
         <button type = "submit"> Add user </button>
     </form>
 </div>
@@ -25,12 +25,12 @@
 
 <br>
 <div>
-    <form action = "/deleteUser" method="post">
+    <form action = "/admin/deleteUser" method="post">
         <label for ="deleteUser"> Choose user for delete </label>
         <select id = "deleteUser" name = "deleteUser">
             <option value = ""> Select user</option>
             <th:block th:each = "user : ${allUsers}">
-                <option th:value="${user.getId()}" th:text="${user.getName()}"></option>
+                <option th:value="${user.getId()}" th:text="${user.getUsername()}"></option>
             </th:block>
         </select>
         <button type = "submit"> Delete user </button>
@@ -42,7 +42,7 @@
 
 <br>
 <div>
-    <form action = "/findUser" method="get">
+    <form action = "/admin/findUser" method="get">
         <label for ="findID"> Write the id </label>
         <input type = "number" id = "findID" name = "findID" required>
         <button type = "submit"> Find user </button>
@@ -54,8 +54,15 @@
 
 <br>
 <div>
-    <form action = "/actionUpdateForm" method="get">
+    <form action = "/admin/actionUpdateForm" method="get">
         <button type = "submit">  Update user </button>
+    </form>
+</div>
+
+<br>
+<div>
+    <form action = "/logout" method="post">
+        <button type = "submit">Log out</button>
     </form>
 </div>
 </body>

@@ -11,14 +11,19 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "users2")
+@Table(name = "users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +41,8 @@ public class User implements UserDetails {
     @Transient
     private String passwordConfirm;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
     public User(String username, Integer age) {
@@ -55,10 +61,6 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getName() {
-        return username;
-    }
-
     public void setName(String name) {
         this.username = name;
     }
@@ -73,8 +75,9 @@ public class User implements UserDetails {
 
     @Override
     public String toString() {
-        return "User: " + "id =" + id + ", name =" + username + ", age =" + age;
+        return "User: " + "id =" + id + ", name =" + username + ", age =" + age + ", roles =" + roles.iterator().next().getName();
     }
+
 
     public void setPassword(String password) {
         this.password = password;
@@ -106,7 +109,7 @@ public class User implements UserDetails {
 
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Set<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
     }
 

@@ -7,14 +7,24 @@
 </head>
 <body>
 <div>
-    <form action = "/addUser" method="post" modelAttribute="user">
-        <label for ="name"> Write the username </label>
-        <input type = "text" id = "name" name ="name" required>
+    <form action = "/admin/addUser" method="post" modelAttribute="user">
+        <label for ="username"> Write the username </label>
+        <input type = "text" id = "username" name ="username" required>
 
         <label for = "age"> Write the user age </label>
         <input type = "number" id = "age" name = "age" required>
 
+        <label for = "password"> Write the user password</label>
+        <input type = "text" id = "password" name = "password" required>
+
         <button type = "submit"> Add user </button>
+    </form>
+</div>
+
+<br>
+<div>
+    <form action = "/logout" method="post">
+        <button type = "submit">Log out</button>
     </form>
 </div>
 </body>
