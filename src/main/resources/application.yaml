@@ -13,4 +13,3 @@ server:
   servlet:
     context-path: /
 
-
