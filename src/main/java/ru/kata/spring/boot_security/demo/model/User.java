@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -41,9 +42,13 @@ public class User implements UserDetails {
     @Transient
     private String passwordConfirm;
 
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> roles;
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
 
     public User(String username, Integer age) {
         this.username = username;
@@ -61,8 +66,12 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public void setName(String name) {
+    public void setUserName(String name) {
         this.username = name;
+    }
+
+    public String getUserName() {
+        return username;
     }
 
     public Integer getAge() {
@@ -75,7 +84,7 @@ public class User implements UserDetails {
 
     @Override
     public String toString() {
-        return "User: " + "id =" + id + ", name =" + username + ", age =" + age + ", roles =" + roles.iterator().next().getName();
+        return "User: " + "id =" + id + ", name =" + username + ", age =" + age;
     }
 
 

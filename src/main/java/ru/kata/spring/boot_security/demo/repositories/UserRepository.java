@@ -11,7 +11,7 @@ import ru.kata.spring.boot_security.demo.model.User;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("update User set username = ?1, age = ?2 where id = ?3 ")
     @Modifying
@@ -19,4 +19,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     void updateUser(String name, Integer age, Integer id);
 
     User findByUsername(String username);
+
+    Optional<User> findById(Integer id);
 }

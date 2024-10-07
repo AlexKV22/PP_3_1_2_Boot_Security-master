@@ -13,10 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.configs.WebSecurityConfig;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -25,20 +27,23 @@ import java.util.Set;
 public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Transactional
     public void save(User user) {
-        User userForSave = userRepository.findByUsername(user.getUsername());
-        if (userForSave != null) {
-            throw new UsernameNotFoundException("This username is already taken");
-        }
-        user.setRoles(user.getRoles());
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userRepository.save(user);
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        Role userRole = roleRepository.findByName("ROLE_USER");
+        if (userRole != null) {
+            user.getRoles().add(userRole);
+            userRepository.save(user);
+        }
     }
 
     public List<User> findAll() {
@@ -46,7 +51,7 @@ public class UserService implements UserDetailsService {
     }
 
     public Optional<User> findById(Integer id) {
-        return userRepository.findById(id.longValue());
+        return userRepository.findById(id);
     }
 
     @Transactional
