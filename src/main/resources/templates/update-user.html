@@ -7,7 +7,7 @@
 </head>
 <body>
 <div>
-    <form action = "/admin/updateUser" method="post" modelAttribute="user">
+    <form action = "/admin/updateUser" method="post" th:object="${newUser}">
         <label for ="updateUser"> Choose user for update </label>
         <select id = "updateUser" name = "updateUser">
             <option value = ""> Select user</option>
@@ -16,10 +16,10 @@
             </th:block>
         </select>
         <label for ="username"> Write the username </label>
-        <input type = "text" id = "username" name = "username" required>
+        <input type = "text" id = "username" th:field="*{userName}" required>
 
         <label for = "age"> Write the user age </label>
-        <input type = "number" id = "age" name = "age" required>
+        <input type = "number" id = "age" th:field="*{age}" required>
 
         <button type = "submit"> Update user </button>
     </form>
@@ -33,3 +33,7 @@
 </div>
 </body>
 </html>
+
+
+
+

@@ -68,12 +68,14 @@ public class AdminController {
     @GetMapping(value = "/actionUpdateForm")
     public String updateUserRedirect(ModelMap model) {
         List<User> allUsers1 = userService.findAll();
+        User newUser = new User();
         model.addAttribute("allUsers1", allUsers1);
+        model.addAttribute("newUser", newUser);
         return "update-user";
     }
 
     @PostMapping(value = "/updateUser")
-    public String updateUser(@ModelAttribute @Validated User user, @RequestParam("updateUser") Integer id) {
+    public String updateUser(@ModelAttribute("user") @Validated User user, @RequestParam("updateUser") Integer id) {
         userService.updateUser(id, user);
         return "redirect:/admin";
     }
