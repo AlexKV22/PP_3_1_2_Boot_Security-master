@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
+import ru.kata.spring.boot_security.demo.service.UserServiceInterface;
 
 import java.security.Principal;
 import java.util.List;
@@ -23,9 +24,9 @@ import java.util.Optional;
 //@RequestMapping("/user")
 public class UserController {
     @Autowired
-    private UserService userService;
+    private UserServiceInterface userService;
 
-    public UserController(UserService userService) {
+    public UserController(UserServiceInterface userService) {
         this.userService = userService;
     }
 

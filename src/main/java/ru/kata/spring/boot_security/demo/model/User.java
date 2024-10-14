@@ -33,6 +33,12 @@ public class User implements UserDetails {
     @Column(name = "username")
     private String username;
 
+    @Column(name = "lastname")
+    private String lastName;
+
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "age")
     private Integer age;
 
@@ -53,6 +59,15 @@ public class User implements UserDetails {
     public User(String username, Integer age) {
         this.username = username;
         this.age = age;
+    }
+
+    public User(String username, String lastName, String email, Integer age, String password, Set<Role> roles) {
+        this.username = username;
+        this.lastName = lastName;
+        this.email = email;
+        this.age = age;
+        this.password = password;
+        this.roles = roles;
     }
 
     public User() {
@@ -84,8 +99,12 @@ public class User implements UserDetails {
 
     @Override
     public String toString() {
-        return "User: " + "id =" + id + ", name =" + username + ", age =" + age;
+        return String.format("id: %d, username: %s, lastname: %s, age: %d, email: %s, role: %s",
+                id, username, lastName, age, email, roles.iterator().next().getName());
+//        return "id =" + id + ", name =" + username + ", age =" + age;
     }
+
+
 
 
     public void setPassword(String password) {
@@ -108,11 +127,21 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+    public String getLastName() {
+        return lastName;
+    }
 
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
+    public String getEmail() {
+        return email;
+    }
 
-
-
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
 
 

@@ -5,28 +5,75 @@
     <meta charset="UTF-8">
     <title>Add new user</title>
 </head>
+
 <body>
+
 <div>
     <form action = "/admin/addUser" method="post" th:object="${user}">
-        <label for ="username"> Write the username </label>
+        <label for ="username"> First name </label>
+        <br>
         <input type = "text" id = "username" th:field="*{userName}" required>
 
-        <label for = "age"> Write the user age </label>
+        <br>
+        <br>
+
+        <label for ="lastName"> Last name </label>
+        <br>
+        <input type = "text" id = "lastName" th:field="*{lastName}" required>
+
+        <br>
+        <br>
+
+        <label for = "age"> Age </label>
+        <br>
         <input type = "number" id = "age" th:field="*{age}" required>
 
-        <label for = "password"> Write the user password</label>
+        <br>
+        <br>
+
+        <label for = "email"> Email </label>
+        <br>
+        <input type = "text" id = "email" th:field="*{email}" required>
+
+        <br>
+        <br>
+
+        <label for = "password"> Password </label>
+        <br>
         <input type = "text" id = "password" th:field="*{password}" required>
+
+        <br>
+        <br>
+
+        <div>
+            <label for ="addRole"> Role </label>
+            <br>
+            <select id = "addRole" name = "addRole">
+                <option value = ""> Select role</option>
+                <th:block th:each = "role : ${roles}">
+                    <option th:value="${role.getId()}" th:text="${role.getName()}">
+                    </option>
+                </th:block>
+            </select>
+        </div>
+
+        <br>
+        <br>
 
         <button type = "submit"> Add user </button>
     </form>
 </div>
 
 <br>
+<br>
+
 <div>
     <form th:action="@{/logout}" method="post">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <button type = "submit">Log out</button>
     </form>
 </div>
+
 </body>
+
 </html>
