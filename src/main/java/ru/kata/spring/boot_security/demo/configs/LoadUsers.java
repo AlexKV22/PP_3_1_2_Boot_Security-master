@@ -25,20 +25,20 @@ public class LoadUsers {
         this.roleRepository = roleRepository;
     }
 
-    @PostConstruct
-    public void init() {
-        roleRepository.save(new Role("ROLE_ADMIN"));
-        roleRepository.save(new Role("ROLE_USER"));
-        Set<Role> rolesUser = new HashSet<>();
-        Set<Role> rolesAdmin = new HashSet<>();
-        rolesUser.add(roleRepository.findByName("ROLE_USER"));
-        rolesAdmin.add(roleRepository.findByName("ROLE_ADMIN"));
-        User user = new User("user", "user", "453422", 67,
-                new BCryptPasswordEncoder().encode("100"), rolesUser);
-        User admin = new User("admin", "admin", "453422", 67,
-                new BCryptPasswordEncoder().encode("100"), rolesAdmin);
-
-        userRepository.save(user);
-        userRepository.save(admin);
-    }
+//    @PostConstruct
+//    public void init() {
+//        roleRepository.save(new Role("ROLE_ADMIN"));
+//        roleRepository.save(new Role("ROLE_USER"));
+//        Set<Role> rolesUser = new HashSet<>();
+//        Set<Role> rolesAdmin = new HashSet<>();
+//        rolesUser.add(roleRepository.findByName("ROLE_USER"));
+//        rolesAdmin.add(roleRepository.findByName("ROLE_ADMIN"));
+//        User user = new User("user", "user", "453422", 67,
+//                new BCryptPasswordEncoder().encode("100"), rolesUser);
+//        User admin = new User("admin", "admin", "453422", 67,
+//                new BCryptPasswordEncoder().encode("100"), rolesAdmin);
+//
+//        userRepository.save(user);
+//        userRepository.save(admin);
+//    }
 }

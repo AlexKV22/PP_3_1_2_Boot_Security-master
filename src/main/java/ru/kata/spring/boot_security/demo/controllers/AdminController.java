@@ -18,6 +18,7 @@ import ru.kata.spring.boot_security.demo.service.RoleServiceInterface;
 import ru.kata.spring.boot_security.demo.service.UserService;
 import ru.kata.spring.boot_security.demo.service.UserServiceInterface;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -37,17 +38,25 @@ public class AdminController {
     }
 
     @GetMapping()
-    public String findAllUsers(ModelMap model) {
+    public String findAllUsers(ModelMap model, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        model.addAttribute("userAdmin", user);
         List<User> allUsers = userService.findAll();
         model.addAttribute("allUsers", allUsers);
+        User newUser = new User();
+        model.addAttribute("newUser", newUser);
+        Set<Role> roles = roleService.getAllRoles();
+        model.addAttribute("roles", roles);
         return "find-all-users";
     }
 
     @GetMapping(value = "/actionUserForm")
-    public String addUserRedirect(Model model) {
+    public String addUserRedirect(Model model, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
         model.addAttribute("user", new User());
         Set<Role> roles = roleService.getAllRoles();
         model.addAttribute("roles", roles);
+        model.addAttribute("userAdmin", user);
         return "add-user";
     }
 
@@ -57,18 +66,9 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping(value = "/actionDeleteForm")
-    public String deleteUserForm(ModelMap model, @RequestParam Integer id) {
-        Optional<User> user = userService.findById(id);
-        if (user.isPresent()) {
-            model.addAttribute("user", user.get());
-        }
-        return "delete-user";
-    }
-
 
     @PostMapping(value = "/deleteUser")
-    public String deleteUser(@RequestParam("id") Integer id) {
+    public String deleteUser(@RequestParam("userId") Integer id) {
         Optional<User> byId = userService.findById(id);
         if (byId.isPresent()) {
             userService.delete(byId.get());
@@ -77,7 +77,7 @@ public class AdminController {
     }
 
     @GetMapping(value = "/findUser")
-    public String findUserById(@ModelAttribute("findID") Integer id, ModelMap model) {
+    public String findUserById(@ModelAttribute("adminID") Integer id, ModelMap model) {
         Optional<User> byId = userService.findById(id);
         if (byId.isPresent()) {
             model.addAttribute("user", byId.get());
@@ -85,24 +85,52 @@ public class AdminController {
         return "find-user-by-id";
     }
 
-    @GetMapping(value = "/actionUpdateForm")
-    public String updateUserRedirect(ModelMap model, @RequestParam Integer id) {
-        Optional<User> user = userService.findById(id);
-        System.out.println(user);
-        if (user.isPresent()) {
-            model.addAttribute("user", user.get());
-            Set<Role> roles = roleService.getAllRoles();
-            model.addAttribute("roles", roles);
-            User newUser = new User();
-            model.addAttribute("newUser", newUser);
-        }
-        return "update-user";
-    }
 
     @PostMapping(value = "/updateUser")
-    public String updateUser(@ModelAttribute @Validated User user, @RequestParam("id") Integer id, @RequestParam("updateRole") @Validated Integer idrole) {
+    public String updateUser(@ModelAttribute @Validated User user, @RequestParam("userId") Integer id, @RequestParam("updateRole") @Validated Integer idrole) {
         System.out.println(idrole);
         userService.updateUser(id, user, idrole);
         return "redirect:/admin";
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //    @GetMapping(value = "/actionUpdateForm")
+//    public String updateUserRedirect(ModelMap model, @RequestParam Integer id) {
+//        Optional<User> user = userService.findById(id);
+//        if (user.isPresent()) {
+//            model.addAttribute("user", user.get());
+//            Set<Role> roles = roleService.getAllRoles();
+//            model.addAttribute("roles", roles);
+//            User newUser = new User();
+//            model.addAttribute("newUser", newUser);
+//        }
+//        return "update-user";
+//    }
+
+
+
+
+
+
+    //    @GetMapping(value = "/actionDeleteForm")
+//    public String deleteUserForm(ModelMap model, @RequestParam Integer id) {
+//        Optional<User> user = userService.findById(id);
+//        if (user.isPresent()) {
+//            model.addAttribute("user", user.get());
+//        }
+//        return "delete-user";
+//    }
 }

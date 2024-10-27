@@ -1,0 +1,6 @@
+.even-row {
+    background-color: darkgray; /* Светлый фон для четных строк */
+}
+.odd-row {
+    background-color: white; /* Темный фон для нечетных строк */
+}

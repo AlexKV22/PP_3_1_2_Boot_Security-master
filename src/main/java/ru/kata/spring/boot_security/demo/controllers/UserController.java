@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-//@RequestMapping("/user")
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserServiceInterface userService;
@@ -31,11 +31,11 @@ public class UserController {
     }
 
 
-    @GetMapping(value = "/user/findUser")
+    @GetMapping(value = "/findUser")
     public String findUserById(ModelMap model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
         model.addAttribute("user", user);
-        return "find-user-by-id";
+        return "find-user-by-id-user";
     }
 
 }
