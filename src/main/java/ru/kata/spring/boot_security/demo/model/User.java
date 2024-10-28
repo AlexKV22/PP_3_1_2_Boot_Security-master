@@ -45,9 +45,6 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @Transient
-    private String passwordConfirm;
-
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "users_roles",
@@ -101,23 +98,13 @@ public class User implements UserDetails {
     public String toString() {
         return String.format("id: %d, username: %s, lastname: %s, age: %d, email: %s, role: %s",
                 id, username, lastName, age, email, roles.iterator().next().getName());
-//        return "id =" + id + ", name =" + username + ", age =" + age;
     }
-
-
 
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public String getPasswordConfirm() {
-        return passwordConfirm;
-    }
-
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
-    }
 
     public Set<Role> getRoles() {
         return roles;

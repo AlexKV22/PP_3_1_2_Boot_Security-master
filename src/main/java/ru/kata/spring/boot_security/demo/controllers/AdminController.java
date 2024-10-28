@@ -2,21 +2,18 @@ package ru.kata.spring.boot_security.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.service.RoleServiceInterface;
+import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
-import ru.kata.spring.boot_security.demo.service.UserServiceInterface;
 
 import java.security.Principal;
 import java.util.List;
@@ -27,12 +24,12 @@ import java.util.Set;
 @RequestMapping("/admin")
 public class AdminController {
     @Autowired
-    private UserServiceInterface userService;
+    private UserService userService;
 
     @Autowired
-    private RoleServiceInterface roleService;
+    private RoleService roleService;
 
-    public AdminController(UserServiceInterface userService, RoleServiceInterface roleService) {
+    public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
     }
@@ -61,8 +58,9 @@ public class AdminController {
     }
 
     @PostMapping(value ="/addUser")
-    public String addUser(@ModelAttribute @Validated User user, @RequestParam("addRole") Integer roleId) {
-        userService.saveUser(user, roleId);
+    public String addUser(@ModelAttribute @Validated User user)
+    {
+        userService.saveUser(user);
         return "redirect:/admin";
     }
 
@@ -87,9 +85,8 @@ public class AdminController {
 
 
     @PostMapping(value = "/updateUser")
-    public String updateUser(@ModelAttribute @Validated User user, @RequestParam("userId") Integer id, @RequestParam("updateRole") @Validated Integer idrole) {
-        System.out.println(idrole);
-        userService.updateUser(id, user, idrole);
+    public String updateUser(@ModelAttribute @Validated User user, @RequestParam("userId") Integer id) {
+        userService.updateUser(user, id);
         return "redirect:/admin";
     }
 

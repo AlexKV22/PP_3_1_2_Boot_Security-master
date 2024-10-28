@@ -85,8 +85,6 @@
                                 <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="background-color: darkcyan; color:white" th:data-user-id="${user.id}">
                                     Edit
                                 </button>
-
-
                                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -143,7 +141,7 @@
                                                     <div>
                                                         <label for ="updateRole"> <strong>Role</strong> </label>
                                                         <br>
-                                                        <select multiple id = "updateRole" name = "updateRole">
+                                                        <select multiple id = "updateRole" th:field="*{roles}" name = "updateRole">
                                                             <th:block th:each = "role : ${roles}">
                                                                 <option th:value="${role.getId()}" th:text="${role.getName()}">
                                                                 </option>

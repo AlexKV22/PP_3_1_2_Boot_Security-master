@@ -97,7 +97,7 @@
                     <div>
                         <label for ="addRole"> <strong>Role</strong> </label>
                         <br>
-                        <select multiple id = "addRole" name = "addRole">
+                        <select multiple id = "addRole" th:field="*{roles}" name = "addRole">
                             <th:block th:each = "role : ${roles}">
                                 <option th:value="${role.getId()}" th:text="${role.getName()}">
                                 </option>
