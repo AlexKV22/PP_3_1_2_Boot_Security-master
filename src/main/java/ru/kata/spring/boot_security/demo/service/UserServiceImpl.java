@@ -15,6 +15,7 @@ import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -34,6 +35,14 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Transactional
     @Override
     public void saveUser(User user) {
+        Set<Role> allRoles = new HashSet<>();
+        for (Role role : user.getRoles()) {
+            Role byName = roleRepository.findByName(role.getName());
+            if (byName != null) {
+                allRoles.add(byName);
+                user.setRoles(allRoles);
+            }
+        }
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userRepository.save(user);
     }

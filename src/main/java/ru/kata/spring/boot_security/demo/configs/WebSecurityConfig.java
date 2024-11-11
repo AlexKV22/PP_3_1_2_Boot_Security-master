@@ -9,12 +9,16 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+//public class WebSecurityConfig extends WebSecurityConfigurerAdapter
+public class WebSecurityConfig
+
+{
     @Autowired
     private final SuccessUserHandler successUserHandler;
     @Autowired
@@ -25,21 +29,40 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.userServiceImpl = userServiceImpl;
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http    .csrf().disable()
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/css/**").permitAll()
-                .anyRequest().authenticated()
+//                .antMatchers("/").permitAll()
+//                .antMatchers("/admin/**").hasRole("ADMIN")
+//                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+//                .antMatchers("/css/**").permitAll()
+                .anyRequest().permitAll()
                 .and()
                 .formLogin().permitAll()
                 .successHandler(successUserHandler)
                 .and()
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll();
+        return http.build();
     }
+
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http    .csrf().disable()
+//                .authorizeRequests()
+////                .antMatchers("/").permitAll()
+////                .antMatchers("/admin/**").hasRole("ADMIN")
+////                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+////                .antMatchers("/css/**").permitAll()
+////                .anyRequest().authenticated()
+//                .and()
+//                .formLogin().permitAll()
+//                .successHandler(successUserHandler)
+//                .and()
+//                .logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll();
+//    }
 
 
     // аутентификация DaoUserDetailsManager
