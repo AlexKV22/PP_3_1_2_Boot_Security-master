@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
-
+//FDFDFDFDFDFDFDF
 @Configuration
 @EnableWebSecurity
 //public class WebSecurityConfig extends WebSecurityConfigurerAdapter
