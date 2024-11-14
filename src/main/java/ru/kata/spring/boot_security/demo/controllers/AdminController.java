@@ -45,38 +45,18 @@ public class AdminController {
 
     @GetMapping()
     public ResponseEntity<List<User>> findAllUsers() {
-//        User user = userService.findByUsername(principal.getName());
-//        model.addAttribute("userAdmin", user);
-//        List<User> allUsers = userService.findAll();
-//        model.addAttribute("allUsers", allUsers);
-//        User newUser = new User();
-//        model.addAttribute("newUser", newUser);
-//        Set<Role> roles = roleService.getAllRoles();
-//        model.addAttribute("roles", roles);
         return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
-//        return "find-all-users";
     }
 
-//    @GetMapping(value = "/actionUserForm")
-//    public String addUserRedirect(Model model, Principal principal) {
-//        User user = userService.findByUsername(principal.getName());
-//        model.addAttribute("user", new User());
-//        Set<Role> roles = roleService.getAllRoles();
-//        model.addAttribute("roles", roles);
-//        model.addAttribute("userAdmin", user);
-//        return "add-user";
-//    }
 
     @PostMapping(value ="/addUser")
     public ResponseEntity<User> addUser(@RequestBody User user)
     {
         userService.saveUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
-//        return "redirect:/admin";
     }
 
 
-//    @PostMapping(value = "/deleteUser")
     @DeleteMapping("/{id}")
     public HttpStatus deleteUser(@PathVariable("id") Integer id) {
         Optional<User> byId = userService.findById(id);
@@ -84,7 +64,6 @@ public class AdminController {
             userService.delete(byId.get());
         }
         return HttpStatus.OK;
-//        return "redirect:/admin";
     }
 
     @GetMapping(value = "/findUser/{id}")
@@ -94,7 +73,6 @@ public class AdminController {
             model.addAttribute("user", byId.get());
         }
         return new ResponseEntity<>(byId.orElse(null), HttpStatus.OK);
-//        return "find-user-by-id";
     }
 
 
@@ -102,7 +80,6 @@ public class AdminController {
     public ResponseEntity<User> updateUser(@RequestBody @Validated User user, @RequestParam("userId") Integer id) {
         userService.updateUser(user, id);
         return new ResponseEntity<>(HttpStatus.OK);
-        //        return "redirect:/admin";
     }
 
 }
