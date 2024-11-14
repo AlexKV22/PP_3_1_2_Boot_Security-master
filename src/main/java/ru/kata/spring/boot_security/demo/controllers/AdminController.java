@@ -67,17 +67,14 @@ public class AdminController {
     }
 
     @GetMapping(value = "/findUser/{id}")
-    public ResponseEntity<User> findUserById(@PathVariable("id") Integer id, ModelMap model) {
+    public ResponseEntity<User> findUserById (@PathVariable("id") Integer id) {
         Optional<User> byId = userService.findById(id);
-        if (byId.isPresent()) {
-            model.addAttribute("user", byId.get());
-        }
         return new ResponseEntity<>(byId.orElse(null), HttpStatus.OK);
     }
 
 
-    @PutMapping(value = "/updateUser")
-    public ResponseEntity<User> updateUser(@RequestBody @Validated User user, @RequestParam("userId") Integer id) {
+    @PutMapping(value = "/updateUser/{id}")
+    public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable("id") Integer id) {
         userService.updateUser(user, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

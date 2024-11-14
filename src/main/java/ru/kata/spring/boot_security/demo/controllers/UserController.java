@@ -25,9 +25,7 @@ public class UserController {
 
 
     @GetMapping(value = "/findUser")
-    public ResponseEntity<User> findUserById(ModelMap model, Principal principal) {
-//        User user = userService.findByUsername(principal.getName());
-//        model.addAttribute("user", user);
+    public ResponseEntity<User> findUserById(Principal principal) {
         return new ResponseEntity<>(userService.findByUsername(principal.getName()), HttpStatus.OK);
     }
 }

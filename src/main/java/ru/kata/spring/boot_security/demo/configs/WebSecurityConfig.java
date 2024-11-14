@@ -12,11 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
-//FDFDFDFDFDFDFDF
 @Configuration
 @EnableWebSecurity
-//public class WebSecurityConfig extends WebSecurityConfigurerAdapter
-public class WebSecurityConfig
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 
 {
     @Autowired
@@ -29,40 +27,21 @@ public class WebSecurityConfig
         this.userServiceImpl = userServiceImpl;
     }
 
-
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http    .csrf().disable()
                 .authorizeRequests()
 //                .antMatchers("/").permitAll()
 //                .antMatchers("/admin/**").hasRole("ADMIN")
 //                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
 //                .antMatchers("/css/**").permitAll()
-                .anyRequest().permitAll()
+//                .anyRequest().authenticated()
                 .and()
                 .formLogin().permitAll()
                 .successHandler(successUserHandler)
                 .and()
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll();
-        return http.build();
     }
-
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http    .csrf().disable()
-//                .authorizeRequests()
-////                .antMatchers("/").permitAll()
-////                .antMatchers("/admin/**").hasRole("ADMIN")
-////                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-////                .antMatchers("/css/**").permitAll()
-////                .anyRequest().authenticated()
-//                .and()
-//                .formLogin().permitAll()
-//                .successHandler(successUserHandler)
-//                .and()
-//                .logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll();
-//    }
 
 
     // аутентификация DaoUserDetailsManager
@@ -126,11 +105,4 @@ public class WebSecurityConfig
 //        users.createUser(user);
 //        users.createUser(admin);
 //        return users;
-//    }
-
-
-    //    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userDetailsService());
-//        auth.authenticationProvider(authenticationProvider());
 //    }

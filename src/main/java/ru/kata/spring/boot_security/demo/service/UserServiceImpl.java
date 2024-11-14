@@ -67,7 +67,14 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     public void updateUser(User user, Integer id) {
         Optional<User> byId = userRepository.findById(id);
         if (byId.isPresent()) {
-            user.setId(id);
+            Set<Role> allRoles = new HashSet<>();
+            for (Role role : user.getRoles()) {
+                Role byName = roleRepository.findByName(role.getName());
+                if (byName != null) {
+                    allRoles.add(byName);
+                    user.setRoles(allRoles);
+                }
+            }
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
             userRepository.save(user);
         }
