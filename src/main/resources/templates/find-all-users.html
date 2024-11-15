@@ -7,6 +7,27 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <link media="all" rel="stylesheet" th:href="@{/css/styles.css}" type="text/css"/>
     <title>This is all of users</title>
+
+<!--    <script>-->
+<!--         async function fetchUsers(){-->
+<!--            try{-->
+<!--                const response = await fetch('/admin');-->
+<!--                const users = await response.json();-->
+<!--                const tableBody = document.getElementById('UserTable');-->
+<!--                tableBody.innerHTML = '';-->
+<!--                users.forEach(user => {-->
+<!--                    const row = document.createElement('tr');-->
+<!--                    const cellId = document.createElement('td');-->
+<!--                    cellId.textContent = user.id;-->
+<!--                    row.appendChild(cellId)-->
+<!--                })-->
+<!--            }-->
+<!--            catch(error) {-->
+<!--                console.error('Error')-->
+<!--            }-->
+<!--            window.onload = fetchUsers;-->
+<!--        }-->
+<!--    </script>-->
 </head>
 <body class ="m-0">
 
@@ -29,25 +50,27 @@
 
     </div>
 </div>
+<!-- КОНЕЦ Верхняя черная полоса-->
 
 
 
-<!-- Блок слева с выбором admin или user-->
 <div class = "container-fluid">
+    <!-- Блок слева с выбором admin или user-->
     <div class ="row text-dark gx-0">
         <div class="col-2 mt-3">
             <form action="/admin" method="get">
             <button type="submit" class="btn btn-primary w-100 text-start">Admin</button>
             </form>
-            <form action="/admin/findUser" method="get">
-                <input type = "hidden" name = "adminID" th:value="${userAdmin.getId()}">
-                <button type="submit" class="btn btn-white w-100 text-start text-primary">User</button>
-            </form>
+<!--            <form action="/admin/findUser" method="get">-->
+<!--                <input type = "hidden" name = "adminID" th:value="${userAdmin.getId()}">-->
+<!--                <button type="submit" class="btn btn-white w-100 text-start text-primary">User</button>-->
+<!--            </form>-->
         </div>
+        <!-- КОНЕЦ БЛОКА СЛЕВА С ВЫБОРОМ admin или user-->
 
-
-        <!-- Блок admin panel-->
+        <!-- БЛОК admin panel-->
         <div class ="col-10 bg-light gx-5 pt-4">
+            <!-- КНОПКИ АДМИН И ЮЗЕР-->
             <h1>Admin panel</h1>
             <ul class = "nav nav-tabs">
                 <li class = "nav-item">
@@ -57,12 +80,19 @@
                     <a class = "nav-link" href="/admin/actionUserForm">New User</a>
                 </li>
             </ul>
-            <div class = "border border-lightgrey p-2">
+            <!-- КОНЕЦ КНОПКИ АДМИН И ЮЗЕР-->
+
+            <!-- НАДПИСЬ All users-->
+            <div class = "border border-lightgrey p-2 border-top-0">
                 <h6>All users</h6>
             </div>
+            <!--  КОНЕЦ НАДПИСИ All users-->
+
+
+
 
             <div class="container-fluid bg-white pt-2 border border-top-0">
-                <table class ="table border-top">
+                <table class ="table border-top" id="itemsTable">
                     <tr>
                         <th>ID</th>
                         <th>First name</th>
@@ -81,6 +111,8 @@
                         <td th:text="${user.getAge()}" style="border-bottom: none"></td>
                         <td th:text="${user.getEmail()}" style="border-bottom: none"></td>
                         <td th:text="${user.getRoles().iterator().next().getName()}" style="border-bottom: none"></td>
+
+                        <!-- КНОПКА ИЗМЕНИТЬ-->
                         <td style="border-bottom:none">
                                 <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="background-color: darkcyan; color:white" th:data-user-id="${user.id}">
                                     Edit
@@ -162,6 +194,9 @@
                                     </div>
                                 </div>
                         </td>
+                        <!-- КОНЕЦ КНОПКИ ИЗМЕНИТЬ-->
+
+                        <!-- КНОПКА УДАЛИТЬ-->
                         <td style="border-bottom:none">
                             <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#deleteBackdrop" style="background-color: crimson; color:white"
                                             th:data-user-id="${user.id}"
@@ -227,10 +262,10 @@
                                                         <option th:text="${user.getRoles().iterator().next().getName()}">
 
                                                         </option>
-<!--                                                        <th:block th:each = "role : ${user.getRoles}">-->
-<!--                                                            <option th:value="${role.getId()}" th:text="${role.getName()}">-->
-<!--                                                            </option>-->
-<!--                                                        </th:block>-->
+                                                        <th:block th:each = "role : ${user.getRoles}">
+                                                            <option th:value="${role.getId()}" th:text="${role.getName()}">
+                                                            </option>
+                                                        </th:block>
                                                     </select>
                                                 </div>
                                                 <br>
@@ -246,12 +281,20 @@
                                 </div>
                             </div>
                         </td>
+                        <!-- КОНЕЦ КНОПКИ УДАЛИТЬ-->
+
                     </tr>
                 </table>
+
+
+
             </div>
         </div>
     </div>
 </div>
+
+
+
 
 
 
