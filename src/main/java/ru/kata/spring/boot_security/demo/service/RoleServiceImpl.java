@@ -9,10 +9,9 @@ import java.util.Set;
 
 @Service
 public class RoleServiceImpl implements RoleService {
-    @Autowired
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
-    public RoleServiceImpl(RoleRepository roleRepository) {
+    public RoleServiceImpl( @Autowired RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
 

@@ -13,7 +13,6 @@ import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
-
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -22,12 +21,10 @@ import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserDetailsService, UserService {
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private RoleRepository roleRepository;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
+    public UserServiceImpl( @Autowired UserRepository userRepository, @Autowired RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
     }
@@ -96,6 +93,4 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     private Collection<? extends GrantedAuthority> getAuthorities(Set<Role> roles) {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).toList();
     }
-
-
 }

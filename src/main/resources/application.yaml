@@ -8,6 +8,7 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
+
 server:
   port: 8080
   servlet:
@@ -16,3 +17,7 @@ server:
 jwt:
   lifetime: 30m
   secret: 984dkdkh33ttte71ebnj4672crh569vvf47vmbmn99
+
+logging:
+  level:
+    root: INFO

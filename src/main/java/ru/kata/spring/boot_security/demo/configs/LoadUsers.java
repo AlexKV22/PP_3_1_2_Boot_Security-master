@@ -15,12 +15,10 @@ import java.util.Set;
 @Component
 public class LoadUsers {
 
-    @Autowired
     private final UserRepository userRepository;
-    @Autowired
     private final RoleRepository roleRepository;
 
-    public LoadUsers(UserRepository userRepository, RoleRepository roleRepository) {
+    public LoadUsers(@Autowired UserRepository userRepository,  @Autowired RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
     }
