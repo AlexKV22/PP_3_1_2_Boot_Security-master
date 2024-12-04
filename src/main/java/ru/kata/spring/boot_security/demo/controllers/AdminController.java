@@ -43,7 +43,7 @@ public class AdminController {
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public HttpStatus deleteUser(@PathVariable("id") Integer id) {
         Optional<User> byId = userService.findById(id);
         if (byId.isPresent()) {

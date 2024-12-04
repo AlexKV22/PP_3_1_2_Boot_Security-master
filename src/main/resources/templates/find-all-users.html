@@ -86,188 +86,6 @@
 
                 <tbody id = "tableBody">
 
-<!--                    <tr th:each="user, iterStat : ${allUsers}"-->
-<!--                        th:class="${iterStat.index % 2 == 0} ? 'even-row' : 'odd-row'">-->
-<!--                        <td th:text="${user.getId()}" style="border-bottom: none"></td>-->
-<!--                        <td th:text="${user.getUsername()}" style="border-bottom: none"></td>-->
-<!--                        <td th:text="${user.getLastName()}" style="border-bottom: none"></td>-->
-<!--                        <td th:text="${user.getAge()}" style="border-bottom: none"></td>-->
-<!--                        <td th:text="${user.getEmail()}" style="border-bottom: none"></td>-->
-<!--                        <td th:text="${user.getRoles().iterator().next().getName()}" style="border-bottom: none"></td>-->
-
-<!--                        &lt;!&ndash; КНОПКА ИЗМЕНИТЬ&ndash;&gt;-->
-<!--                        <td style="border-bottom:none">-->
-<!--                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="background-color: darkcyan; color:white" th:data-user-id="${user.id}">-->
-<!--                                    Edit-->
-<!--                                </button>-->
-<!--                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">-->
-<!--                                    <div class="modal-dialog">-->
-<!--                                        <div class="modal-content">-->
-<!--                                            <div class="modal-header">-->
-<!--                                                <h5 class="modal-title" id="staticBackdropLabel"> Edit user </h5>-->
-<!--                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">-->
-<!--                                                </button>-->
-<!--                                            </div>-->
-
-<!--                                            <div class="modal-body bg-white pt-2 border border-top-0 text-center">-->
-<!--                                                <form action = "/admin/updateUser" method="post" th:object="${newUser}" id="editUser">-->
-<!--                                                        <label for ="userId"> <strong>ID</strong> </label>-->
-<!--                                                        <br>-->
-<!--                                                        <input type = "text" class="border" id = "userId" name="userId" readonly>-->
-
-<!--                                                        <br>-->
-<!--                                                        <br>-->
-
-<!--                                                        <label for ="username"> <strong>First name</strong> </label>-->
-<!--                                                        <br>-->
-<!--                                                        <input type = "text" class="border" id = "username" th:field="*{userName}" required>-->
-
-<!--                                                        <br>-->
-<!--                                                        <br>-->
-
-<!--                                                        <label for = "lastName"> <strong>Last name</strong> </label>-->
-<!--                                                        <br>-->
-<!--                                                        <input type = "text" class="border" id = "lastName" th:field="*{lastName}" required>-->
-
-<!--                                                        <br>-->
-<!--                                                        <br>-->
-
-<!--                                                        <label for = "age"> <strong>Age</strong> </label>-->
-<!--                                                        <br>-->
-<!--                                                        <input type = "number" class="border" id = "age" th:field="*{age}" required>-->
-
-<!--                                                        <br>-->
-<!--                                                        <br>-->
-
-<!--                                                        <label for = "email"> <strong>Email</strong> </label>-->
-<!--                                                        <br>-->
-<!--                                                        <input type = "text" class="border" id = "email" th:field="*{email}" required>-->
-
-<!--                                                        <br>-->
-<!--                                                        <br>-->
-
-<!--                                                        <label for = "password"> <strong>Password</strong> </label>-->
-<!--                                                        <br>-->
-<!--                                                        <input type = "text" class="border" id = "password" th:field="*{password}" required>-->
-
-<!--                                                        <br>-->
-<!--                                                        <br>-->
-
-<!--                                                    <div>-->
-<!--                                                        <label for ="updateRole"> <strong>Role</strong> </label>-->
-<!--                                                        <br>-->
-<!--                                                        <select multiple id = "updateRole" th:field="*{roles}" name = "updateRole">-->
-<!--                                                            <th:block th:each = "role : ${roles}">-->
-<!--                                                                <option th:value="${role.getId()}" th:text="${role.getName()}">-->
-<!--                                                                </option>-->
-<!--                                                            </th:block>-->
-<!--                                                        </select>-->
-<!--                                                    </div>-->
-
-<!--                                                    <br>-->
-<!--                                                    <br>-->
-<!--                                                </form>-->
-<!--                                            </div>-->
-
-<!--                                            <div class="modal-footer">-->
-<!--                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
-<!--                                                <button type="submit" class="btn btn-primary" form="editUser">Edit</button>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                        </td>-->
-<!--                        &lt;!&ndash; КОНЕЦ КНОПКИ ИЗМЕНИТЬ&ndash;&gt;-->
-
-<!--                        &lt;!&ndash; КНОПКА УДАЛИТЬ&ndash;&gt;-->
-<!--                        <td style="border-bottom:none">-->
-<!--                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#deleteBackdrop" style="background-color: crimson; color:white"-->
-<!--                                            th:data-user-id="${user.id}"-->
-<!--                                            th:data-user-name="${user.getUsername()}"-->
-<!--                                            th:data-user-lastName="${user.getLastName()}"-->
-<!--                                            th:data-user-age="${user.getAge()}"-->
-<!--                                            th:data-user-email="${user.getEmail()}"-->
-<!--                                            th:data-user-role="${user.roles}">-->
-<!--                                Delete-->
-<!--                            </button>-->
-
-
-<!--                            <div class="modal fade" id="deleteBackdrop" data-bs-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="deleteBackdropLabel" aria-hidden="true">-->
-<!--                                <div class="modal-dialog">-->
-<!--                                    <div class="modal-content">-->
-<!--                                        <div class="modal-header">-->
-<!--                                            <h5 class="modal-title" id="deleteBackdropLabel"> Delete user </h5>-->
-<!--                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">-->
-<!--                                            </button>-->
-<!--                                        </div>-->
-
-<!--                                        <div class="modal-body bg-white pt-2 border border-top-0 text-center">-->
-<!--                                            <form action = "/admin/deleteUser" method="post" th:object="${newUser}" id="deleteUser">-->
-<!--                                                <label for ="userIdDelete"> <strong>ID</strong> </label>-->
-<!--                                                <br>-->
-<!--                                                <input type = "text" class="border" id = "userIdDelete" name="userIdDelete" readonly>-->
-
-<!--                                                <br>-->
-<!--                                                <br>-->
-
-<!--                                                <label for ="userNameDelete"> <strong>First name</strong> </label>-->
-<!--                                                <br>-->
-<!--                                                <input type = "text" class="border" id = "userNameDelete" name="userNameDelete" readonly>-->
-
-<!--                                                <br>-->
-<!--                                                <br>-->
-
-<!--                                                <label for = "userLastNameDelete"> <strong>Last name</strong> </label>-->
-<!--                                                <br>-->
-<!--                                                <input type = "text" class="border" id = "userLastNameDelete" name="userLastNameDelete" readonly>-->
-
-<!--                                                <br>-->
-<!--                                                <br>-->
-
-<!--                                                <label for = "ageDelete"> <strong>Age</strong> </label>-->
-<!--                                                <br>-->
-<!--                                                <input type = "number" class="border" id = "ageDelete" name="ageDelete" readonly>-->
-
-<!--                                                <br>-->
-<!--                                                <br>-->
-
-<!--                                                <label for = "emailDelete"> <strong>Email</strong> </label>-->
-<!--                                                <br>-->
-<!--                                                <input type = "text" class="border" id = "emailDelete" name="emailDelete" readonly>-->
-
-<!--                                                <br>-->
-<!--                                                <br>-->
-
-<!--                                                <div>-->
-<!--                                                    <label for ="deleteRole11"> <strong>Role</strong> </label>-->
-<!--                                                    <br>-->
-<!--                                                    <select multiple id = "deleteRole11" name = "deleteRole11" disabled>-->
-<!--                                                        <option th:text="${user.getRoles().iterator().next().getName()}">-->
-
-<!--                                                        </option>-->
-<!--                                                        <th:block th:each = "role : ${user.getRoles}">-->
-<!--                                                            <option th:value="${role.getId()}" th:text="${role.getName()}">-->
-<!--                                                            </option>-->
-<!--                                                        </th:block>-->
-<!--                                                    </select>-->
-<!--                                                </div>-->
-<!--                                                <br>-->
-<!--                                                <br>-->
-<!--                                            </form>-->
-<!--                                        </div>-->
-
-<!--                                        <div class="modal-footer">-->
-<!--                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
-<!--                                            <button type="submit" class="btn btn-danger" form="deleteUser">Delete</button>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </td>-->
-<!--                        &lt;!&ndash; КОНЕЦ КНОПКИ УДАЛИТЬ&ndash;&gt;-->
-
-
-<!--                    </tr>-->
                 </tbody>
                 </table>
             </div>
@@ -277,9 +95,9 @@
                     <div class = "modal-content">
                         <div class = "modal-header">
                             <h5 class = "modal-title"> Edit </h5>
-<!--                            <button type = "button" class = "close" data-dismiss = "modal" aria-label = "Close" onclick = "closeModal()">-->
-<!--                                <span aria-hidden = "true"> &times;</span>-->
-<!--                            </button>-->
+                            <button type = "button" class = "close" data-dismiss = "modal" aria-label = "Close" onclick = "closeModal()">
+                                <span aria-hidden = "true"> &times;</span>
+                            </button>
                         </div>
                         <div class = "modal-body">
                             <input type = "hidden" id = "userId"/>
@@ -302,7 +120,43 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
-                            <button type="button" class="btn btn-primary" onclick="saveUser()">Save changes</button>
+                            <button type="button" class="btn btn-primary" onclick="updateUser()">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id = "deleteModal" class = "modal" tabindex = "-1" role = "dialog">
+                <div class = "modal-dialog" role = "document">
+                    <div class = "modal-content">
+                        <div class = "modal-header">
+                            <h5 class = "modal-title"> Delete </h5>
+                            <button type = "button" class = "close" data-dismiss = "modal" aria-label = "Close" onclick = "closeModal()">
+                                <span aria-hidden = "true"> &times;</span>
+                            </button>
+                        </div>
+                        <div class = "modal-body">
+                            <input type = "hidden" id = "userIdDelete"/>
+                            <div class = "form-group">
+                                <label for = "username">First Name</label>
+                                <input type = "text" class = "form-control" id = "usernameDelete" readonly/>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" class="form-control" id="lastNameDelete" readonly />
+                            </div>
+                            <div class="form-group">
+                                <label for="age">Age</label>
+                                <input type="number" class="form-control" id="ageDelete" readonly />
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="emailDelete" readonly />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
+                            <button type="button" class="btn btn-primary" onclick="deleteUser()">Delete user</button>
                         </div>
                     </div>
                 </div>
@@ -318,38 +172,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<!--<script>-->
-<!--    document.addEventListener('DOMContentLoaded', function () {-->
-<!--        const updateModal = document.getElementById('staticBackdrop');-->
-<!--        updateModal.addEventListener('show.bs.modal', function (event) {-->
-<!--            const button = event.relatedTarget;-->
-<!--            const userId = button.getAttribute('data-user-id');-->
-<!--            document.getElementById('userId').value = userId-->
-<!--        });-->
-<!--    });-->
-<!--</script>-->
-<!--<script>-->
-<!--    document.addEventListener('DOMContentLoaded', function () {-->
-<!--        const updateModal = document.getElementById('deleteBackdrop');-->
-<!--        updateModal.addEventListener('show.bs.modal', function (event) {-->
-<!--            const button = event.relatedTarget;-->
-<!--            const userId = button.getAttribute('data-user-id');-->
-<!--            const userName = button.getAttribute('data-user-name');-->
-<!--            const userLastName = button.getAttribute('data-user-lastName');-->
-<!--            const userAge = button.getAttribute('data-user-age');-->
-<!--            const userEmail = button.getAttribute('data-user-email');-->
-<!--            const userRoles = button.getAttribute('data-user-role');-->
-<!--            const user = button.getAttribute('data-user-user');-->
-<!--            document.getElementById('userIdDelete').value = userId;-->
-<!--            document.getElementById('userNameDelete').value = userName;-->
-<!--            document.getElementById('userLastNameDelete').value = userLastName;-->
-<!--            document.getElementById('ageDelete').value = userAge;-->
-<!--            document.getElementById('emailDelete').value = userEmail;-->
-<!--            document.getElementById('deleteRole').value = userRoles;-->
-<!--            document.getElementById('userUser').value = user-->
-<!--        });-->
-<!--    });-->
-<!--</script>-->
 <script src= "/js/FetchLoad.js"></script>
 </body>
 </html>
