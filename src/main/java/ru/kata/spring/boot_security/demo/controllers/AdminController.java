@@ -20,7 +20,7 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/rest")
 public class AdminController {
     private final UserService userService;
 
@@ -30,7 +30,8 @@ public class AdminController {
 
     @GetMapping()
     public ResponseEntity<List<User>> findAllUsers() {
-        return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
+        List<User> users = userService.findAll();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
 
