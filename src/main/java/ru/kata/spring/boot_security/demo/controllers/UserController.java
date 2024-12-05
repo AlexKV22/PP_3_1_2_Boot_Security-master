@@ -12,7 +12,7 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/restUser")
 public class UserController {
     private final UserService userService;
 
@@ -20,8 +20,7 @@ public class UserController {
         this.userService = userService;
     }
 
-
-    @GetMapping(value = "/findUser")
+    @GetMapping()
     public ResponseEntity<User> findUserById(Principal principal) {
         return new ResponseEntity<>(userService.findByUsername(principal.getName()), HttpStatus.OK);
     }

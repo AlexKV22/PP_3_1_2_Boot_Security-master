@@ -15,11 +15,11 @@
 <!-- Верхняя черная полоса-->
 <div class = "container-fluid">
     <div class = "row align-items-start bg-dark text-white p-0">
-<!--        <div class = "col-11 d-flex justify-content-left align-items-center">-->
-<!--            <p>-->
-<!--                <strong th:text ="${userAdmin.userName}"></strong> with roles: <span th:text ="${userAdmin.getRoles().iterator().next().getName()}">-->
-<!--            </span>-->
-<!--        </div>-->
+        <div class = "col-11 d-flex justify-content-left align-items-center">
+            <p>
+                <strong id = "principalName"></strong> with roles: <span id = "principalRoles">
+            </span>
+        </div>
 
         <div class = "col d-flex justify-content-right align-items-center">
             <form th:action="@{/logout}" method="post">
@@ -57,7 +57,7 @@
                     <a class ="nav-link" href="/admin" style="background-color: white; border:1px solid lightgrey; color:black" >Users table</a>
                 </li>
                 <li class = "nav-item">
-                    <a class = "nav-link" href="/admin/actionUserForm">New User</a>
+                    <button class = "nav-link" onclick=$("#saveModal").modal("show");>New User</button>
                 </li>
             </ul>
             <!-- КОНЕЦ КНОПКИ АДМИН И ЮЗЕР-->
@@ -67,9 +67,6 @@
                 <h6>All users</h6>
             </div>
             <!--  КОНЕЦ НАДПИСИ All users-->
-
-
-
 
             <div class="container-fluid bg-white pt-2 border border-top-0">
                 <table class ="table border-top" id="itemsTable">
@@ -138,19 +135,19 @@
                         <div class = "modal-body">
                             <input type = "hidden" id = "userIdDelete"/>
                             <div class = "form-group">
-                                <label for = "username">First Name</label>
+                                <label for = "usernameDelete">First Name</label>
                                 <input type = "text" class = "form-control" id = "usernameDelete" readonly/>
                             </div>
                             <div class="form-group">
-                                <label for="lastName">Last Name</label>
+                                <label for="lastNameDelete">Last Name</label>
                                 <input type="text" class="form-control" id="lastNameDelete" readonly />
                             </div>
                             <div class="form-group">
-                                <label for="age">Age</label>
+                                <label for="ageDelete">Age</label>
                                 <input type="number" class="form-control" id="ageDelete" readonly />
                             </div>
                             <div class="form-group">
-                                <label for="email">Email</label>
+                                <label for="emailDelete">Email</label>
                                 <input type="email" class="form-control" id="emailDelete" readonly />
                             </div>
                         </div>
@@ -161,17 +158,60 @@
                     </div>
                 </div>
             </div>
+
+
+            <div id = "saveModal" class = "modal" tabindex = "-1" role = "dialog">
+                <div class = "modal-dialog" role = "document">
+                    <div class = "modal-content">
+                        <div class = "modal-header">
+                            <h5 class = "modal-title"> Save user </h5>
+                            <button type = "button" class = "close" data-dismiss = "modal" aria-label = "Close" onclick = "closeModal()">
+                                <span aria-hidden = "true"> &times;</span>
+                            </button>
+                        </div>
+                        <div class = "modal-body">
+<!--                            <input type = "hidden" id = "userIdSave"/>-->
+                            <div class = "form-group">
+                                <label for = "usernameSave">First Name</label>
+                                <input type = "text" class = "form-control" id = "usernameSave" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastNameSave">Last Name</label>
+                                <input type="text" class="form-control" id="lastNameSave" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="ageSave">Age</label>
+                                <input type="number" class="form-control" id="ageSave" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="emailSave">Email</label>
+                                <input type="email" class="form-control" id="emailSave" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="passwordSave">Password</label>
+                                <input type="password" class="form-control" id="passwordSave" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="rolesSave">Roles</label>
+                                <select id="rolesSave" name="rolesSave" required>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
+                            <button type="button" class="btn btn-primary" onclick="saveUser()">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </div>
 </div>
 
-
-
-
-
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src= "/js/FetchLoad.js"></script>
+<script src= "/js/AdminScript.js"></script>
 </body>
 </html>

@@ -11,27 +11,44 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 
 @RestController
 @RequestMapping("/rest")
 public class AdminController {
     private final UserService userService;
+    private final RoleService roleService;
 
-    public AdminController(@Autowired UserService userService) {
+    public AdminController(@Autowired UserService userService, @Autowired RoleService roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
 
     @GetMapping()
     public ResponseEntity<List<User>> findAllUsers() {
         List<User> users = userService.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/roles")
+    public ResponseEntity<Set<Role>> findAllRoles() {
+        Set<Role> roles = roleService.getAllRoles();
+        return new ResponseEntity<>(roles, HttpStatus.OK);
+    }
+
+    @GetMapping("/getPrincipal")
+    public ResponseEntity<User> findAllRoles(Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
 

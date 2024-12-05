@@ -15,7 +15,7 @@
     <div class = "row align-items-start bg-dark text-white p-0">
         <div class = "col-11 d-flex justify-content-left align-items-center">
             <p>
-                <strong th:text ="${user.userName}"></strong> with roles: <span th:text ="${user.getRoles().iterator().next().getName()}">
+                <strong id = "principalNameUser"></strong> with roles: <span id = "principalRolesUser">
             </span>
         </div>
 
@@ -34,8 +34,8 @@
 <div class = "container-fluid">
     <div class ="row text-dark gx-0">
         <div class="col-2 mt-3">
-            <form action="/admin/findUser" method="get">
-                <input type = "hidden" name = "adminID" th:value="${user.getId()}">
+            <form action="/restUser" method="get">
+                <input type = "hidden" name = "userID">
                 <button type="submit" class="btn btn-primary w-100 text-start">User</button>
             </form>
         </div>
@@ -58,14 +58,8 @@
                         <th>Email</th>
                         <th>Role</th>
                     </tr>
-                    <tr class="even-row">
-                        <td th:text="${user.getId()}" style="border-bottom: none"></td>
-                        <td th:text="${user.getUsername()}" style="border-bottom: none"></td>
-                        <td th:text="${user.getLastName()}" style="border-bottom: none"></td>
-                        <td th:text="${user.getAge()}" style="border-bottom: none"></td>
-                        <td th:text="${user.getEmail()}" style="border-bottom: none"></td>
-                        <td th:text="${user.getRoles().iterator().next().getName()}" style="border-bottom: none"></td>
-                    </tr>
+                    <tbody id = "tableBodyUser">
+                    </tbody>
                 </table>
             </div>
 
@@ -74,5 +68,6 @@
 </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<script src= "/js/UserScript.js"></script>
 </body>
 </html>
