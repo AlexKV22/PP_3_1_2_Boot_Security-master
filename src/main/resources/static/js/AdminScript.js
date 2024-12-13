@@ -61,7 +61,12 @@ function updateUser() {
         lastName: document.getElementById("lastName").value,
         age: document.getElementById("age").value,
         email: document.getElementById("email").value,
+        roles: []
     };
+    const selectedRoleId = document.getElementById('rolesEdit').value;
+    if (selectedRoleId) {
+        updatedUser.roles.push({ id: selectedRoleId });
+    }
     fetch(`rest/updateUser/${userId}`, {
         method:"PUT",
         headers: {
@@ -174,12 +179,14 @@ document.addEventListener('DOMContentLoaded', function getRoles () {
         })
         .then(roles => {
             const selectRoles = document.getElementById("rolesSave");
+            const updatedRoles = document.getElementById("rolesEdit");
             // tableBody.innerHTML = '';
             roles.forEach(role => {
                 const option = document.createElement('option');
                 option.value = role.id;
                 option.textContent = role.name;
                 selectRoles.appendChild(option);
+                updatedRoles.appendChild(option);
             });
         })
         .catch(error => {
