@@ -53,8 +53,7 @@ public class AdminController {
 
 
     @PostMapping(value ="/addUser")
-    public ResponseEntity<User> addUser(@RequestBody User user)
-    {
+    public ResponseEntity<User> addUser(@RequestBody User user) {
         userService.saveUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -76,9 +75,9 @@ public class AdminController {
     }
 
 
-    @PutMapping(value = "/updateUser/{id}")
-    public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable("id") Integer id) {
-        userService.updateUser(user, id);
+    @PutMapping(value = "/updateUser")
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+        userService.updateUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

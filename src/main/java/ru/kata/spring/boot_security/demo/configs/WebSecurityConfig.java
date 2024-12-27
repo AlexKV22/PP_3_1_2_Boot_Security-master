@@ -18,7 +18,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
     private final UserService userService;
 
-    public WebSecurityConfig( @Autowired SuccessUserHandler successUserHandler, @Autowired UserService userService) {
+    public WebSecurityConfig(@Autowired SuccessUserHandler successUserHandler, @Autowired UserService userService) {
         this.successUserHandler = successUserHandler;
         this.userService = userService;
     }
@@ -39,7 +39,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll();
 
     }
-
 
     // аутентификация DaoUserDetailsManager
     @Bean

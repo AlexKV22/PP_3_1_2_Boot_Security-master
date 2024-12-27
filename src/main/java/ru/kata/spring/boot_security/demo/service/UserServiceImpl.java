@@ -4,17 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -22,24 +18,14 @@ import java.util.Set;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
 
-    public UserServiceImpl( @Autowired UserRepository userRepository, @Autowired RoleRepository roleRepository) {
+    public UserServiceImpl( @Autowired UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
     }
 
     @Transactional
     @Override
     public void saveUser(User user) {
-        Set<Role> allRoles = new HashSet<>();
-        for (Role role : user.getRoles()) {
-            Role byName = roleRepository.findByName(role.getName());
-            if (byName != null) {
-                allRoles.add(byName);
-                user.setRoles(allRoles);
-            }
-        }
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userRepository.save(user);
     }
@@ -61,21 +47,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(User user, Integer id) {
-        Optional<User> byId = userRepository.findById(id);
-        if (byId.isPresent()) {
-            Set<Role> allRoles = new HashSet<>();
-            for (Role role : user.getRoles()) {
-                Role byName = roleRepository.findByName(role.getName());
-                if (byName != null) {
-                    allRoles.add(byName);
-                    user.setRoles(allRoles);
-                }
-            }
-            user.setId(id);
-            user.setPassword(new BCryptPasswordEncoder().encode(byId.get().getPassword()));
-            userRepository.save(user);
-        }
+    public void updateUser(User user) {
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        userRepository.save(user);
     }
 
     @Override

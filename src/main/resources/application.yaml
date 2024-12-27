@@ -4,20 +4,23 @@ spring:
     password: rootroot
     username: root
     url: jdbc:mysql://localhost:3306/new_schema
+
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  thymeleaf:
+    cache: false
 
 server:
   port: 8080
   servlet:
     context-path: /
 
-jwt:
-  lifetime: 30m
-  secret: 984dkdkh33ttte71ebnj4672crh569vvf47vmbmn99
-
 logging:
   level:
     root: INFO
+

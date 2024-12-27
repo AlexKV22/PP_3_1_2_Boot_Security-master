@@ -55,19 +55,21 @@ function editUser(id) {
 }
 
 function updateUser() {
-    const userId = document.getElementById("userId").value
+    // const userId = document.getElementById("userId").value
     const updatedUser = {
+        id: document.getElementById("userId").value,
         username: document.getElementById("username").value,
         lastName: document.getElementById("lastName").value,
         age: document.getElementById("age").value,
         email: document.getElementById("email").value,
+        password: document.getElementById("passwordEdit").value,
         roles: []
     };
     const selectedRoleId = document.getElementById('rolesEdit').value;
     if (selectedRoleId) {
         updatedUser.roles.push({ id: selectedRoleId });
     }
-    fetch(`rest/updateUser/${userId}`, {
+    fetch(`rest/updateUser`, {
         method:"PUT",
         headers: {
             "Content-Type": "application/json",
@@ -180,13 +182,15 @@ document.addEventListener('DOMContentLoaded', function getRoles () {
         .then(roles => {
             const selectRoles = document.getElementById("rolesSave");
             const updatedRoles = document.getElementById("rolesEdit");
-            // tableBody.innerHTML = '';
             roles.forEach(role => {
-                const option = document.createElement('option');
-                option.value = role.id;
-                option.textContent = role.name;
-                selectRoles.appendChild(option);
-                updatedRoles.appendChild(option);
+                const optionEdit = document.createElement('option');
+                optionEdit.value = role.id;
+                optionEdit.textContent = role.name;
+                const optionSave = document.createElement('option');
+                optionSave.value = role.id;
+                optionSave.textContent = role.name;
+                selectRoles.appendChild(optionSave);
+                updatedRoles.appendChild(optionEdit);
             });
         })
         .catch(error => {
