@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function fetchUsers () {
         .then(users => {
             const tableBody = document.getElementById("tableBody");
             tableBody.innerHTML = '';
-            users.forEach(user => {
+            users.forEach((user, index) => {
                 const row = document.createElement('tr');
                 row.innerHTML = `        <td>${user.id}</td>
                                          <td>${user.username}</td>
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function fetchUsers () {
                                          <td>${user.roles.map(role => role.name).join(",")}</td>
                                          <td><button onclick="editUser(${user.id})">Edit</button></td>
                                          <td><button onclick="confirmDeleteUser(${user.id})">Delete</button></td>`;
-
+                index % 2 === 0? row.classList.add('even-row') : row.classList.add('odd-row');
                 tableBody.appendChild(row)
             });
         })
